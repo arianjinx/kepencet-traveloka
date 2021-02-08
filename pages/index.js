@@ -19,7 +19,7 @@ export default function Home(props) {
   return (
     <div className="bg-gray-50 m-0 px-2">
       <Head>
-        <title>Twitter VS Traveloka</title>
+        <title>Kepencet Traveloka</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="mx-auto max-w-96 w-full text-center py-4">
