@@ -1,12 +1,10 @@
 import Head from "next/head";
-import axios from "axios";
 import Tweet from "../components/Tweet";
+import getRecentTweets from "../utils/getRecentTweets";
 
 export default function Home(props) {
   const { recentTweets, lastUpdate, cronDurationHour } = props;
-
-  const tweets = recentTweets.data;
-  const users = recentTweets.includes.users;
+  const tweets = recentTweets;
 
   const timeFormat = new Intl.DateTimeFormat("en-id", {
     hour: "numeric",
@@ -18,38 +16,20 @@ export default function Home(props) {
     year: "numeric",
   });
 
-  const formattedTweets = tweets.flatMap((tweet) => {
-    const user = users.find((user) => user.id === tweet.author_id);
-
-    if (!user) {
-      console.log("invalid user", { tweet });
-      return [];
-    }
-
-    return {
-      id: tweet.id,
-      name: user.name,
-      avatarUrl: user.profile_image_url,
-      username: user.username,
-      text: tweet.text,
-      timestamp: tweet.created_at,
-    };
-  });
-
   return (
-    <div>
+    <div className="bg-gray-50 m-0 px-2">
       <Head>
         <title>Twitter VS Traveloka</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mx-auto w-96 text-center my-4">
+      <div className="mx-auto max-w-96 w-full text-center py-4">
         <div className="text-gray-800">
           Selama {cronDurationHour} jam terakhir
         </div>
         <div>Last update: {dateFormat.format(lastUpdate)}</div>
       </div>
       <main className="w-full flex flex-col items-center">
-        {formattedTweets.map((tweet, key) => (
+        {tweets.map((tweet) => (
           <Tweet key={tweet.id} {...tweet} />
         ))}
       </main>
@@ -57,19 +37,8 @@ export default function Home(props) {
   );
 }
 export const getStaticProps = async () => {
-  async function getRecentTweets() {
-    const res = await axios.get(`${process.env.TWITTER_API_URL.trim()}`);
-
-    if (res.data.errors) {
-      console.error("errors", res.data.errors);
-      return [];
-    }
-    return res.data;
-  }
-
   const recentTweets = await getRecentTweets();
   const cronDurationHour = 1;
-
   return {
     revalidate: cronDurationHour * 60 * 60,
     props: {
