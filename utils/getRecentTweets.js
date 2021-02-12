@@ -18,25 +18,5 @@ async function getRecentTweetsWithQuery() {
 
 export default async function getRecentTweets() {
   let data = await getRecentTweetsWithQuery();
-
-  const tweets = data.data;
-  const users = data.includes.users;
-
-  return tweets.flatMap((tweet) => {
-    const user = users.find((user) => user.id === tweet.author_id);
-
-    if (!user) {
-      console.log("invalid user", { tweet });
-      return [];
-    }
-
-    return {
-      id: tweet.id,
-      name: user.name,
-      avatarUrl: user.profile_image_url,
-      username: user.username,
-      text: tweet.text,
-      timestamp: tweet.created_at,
-    };
-  });
+  return data;
 }
