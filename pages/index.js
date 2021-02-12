@@ -26,6 +26,17 @@ export default function Home(props) {
           content={`${tweets.length} kepencet dalam ${cronDurationHour} jam terakhir`}
         />
       </Head>
+      <a href="https://github.com/arianjinx">
+        <img
+          loading="lazy"
+          width="129"
+          height="129"
+          src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+          class="right-0 absolute top-0 max-w-full"
+          alt="Fork me on GitHub"
+          data-recalc-dims="1"
+        />
+      </a>
       <div className="mx-auto max-w-96 w-full text-center py-3">
         <h1 className="flex flex-col mb-4 text-center">
           <span className="text-9xl font-bold">{tweets.length}</span>

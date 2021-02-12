@@ -9,3 +9,6 @@ npm run dev
 # or
 yarn dev
 ```
+## Note
+
+This project was heavily inspired by [pveyes/indihmm](https://github.com/pveyes/indihmm).
