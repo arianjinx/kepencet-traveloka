@@ -1,0 +1,158 @@
+{
+  "name": "kepencet-traveloka",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        450,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitter.com/2/tweets/search/recent",
+        "options": {
+          "useQueryString": false
+        },
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "<< INPUT YOUR BEARER TOKEN HERE >>"
+            }
+          ]
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "query",
+              "value": "(malah OR ketuker OR ketukar OR ke klik OR keklik OR keliru OR pencet OR mencet OR sengaja OR salah OR buka OR teken OR pijit OR mijit) \"traveloka\" (\"twitter\" OR \"twit\" OR \"twt\" OR \"telegram\" OR \"tele\") -is:retweet -is:quote -is:reply -from:traveloka"
+            },
+            {
+              "name": "max_results",
+              "value": "100"
+            },
+            {
+              "name": "expansions",
+              "value": "author_id"
+            },
+            {
+              "name": "tweet.fields",
+              "value": "id,text,created_at"
+            },
+            {
+              "name": "user.fields",
+              "value": "username,name,profile_image_url"
+            },
+            {
+              "name": "start_time",
+              "value": "={{$json[\"date\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        910,
+        630
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "path": "kepencet-traveloka",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        450,
+        630
+      ],
+      "webhookId": "6ea727a2-e916-4df7-a679-596b78e23804",
+      "credentials": {
+        "httpBasicAuth": "Basic Auth"
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "var days = 7;\nvar date = new Date(new Date().getTime() - (days * 24 * 60 * 60 * 1000));\nitems[0].json.date = date.toJSON();\nreturn items;\n"
+      },
+      "name": "Get date function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        690,
+        630
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const tweets = item.data;\nconst users = item.includes.users;\n\nreturn tweets.flatMap((tweet) => {\n  const user = users.find((user) => user.id === tweet.author_id);\n\n  if (!user) {\n    console.log(\"invalid user\", { tweet });\n    return [];\n  }\n\n  return {\n    id: tweet.id,\n    name: user.name,\n    avatarUrl: user.profile_image_url,\n    username: user.username,\n    text: tweet.text,\n    timestamp: tweet.created_at,\n  };\n});\n\n"
+      },
+      "name": "Flatmap",
+      "type": "n8n-nodes-base.functionItem",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        630
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get date function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Get date function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get date function": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Flatmap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "1"
+}

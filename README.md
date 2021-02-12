@@ -10,7 +10,13 @@
 
 ## Getting Started
 
-First, run the development server:
+1. Update the `<< INPUT YOUR BEARER TOKEN HERE >>` inside `/kepencet_traveloka.json`
+2. Copy the workflow 👉 `/kepencet_traveloka.json`
+3. Navigate to your n8n editor
+4. Click anywhere in the n8n window
+5. Paste the code (ctrl + v or cmd + v)
+
+And then, run the development server:
 
 ```bash
 npm run dev
@@ -18,6 +24,6 @@ npm run dev
 yarn dev
 ```
 
-## Note
+## Important Notes
 
 This project was heavily inspired by [pveyes/indihmm](https://github.com/pveyes/indihmm).
