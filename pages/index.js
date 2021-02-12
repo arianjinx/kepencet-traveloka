@@ -23,10 +23,10 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content={`${tweets.length} kepencet dalam ${cronDurationHour} jam terakhir`}
+          content={`${tweets.length} kepencet dalam selama 1 minggu terakhir`}
         />
       </Head>
-      <a href="https://github.com/arianjinx">
+      <a href="https://github.com/arianjinx" target="_blank">
         <img
           loading="lazy"
           width="129"
