@@ -1,13 +1,11 @@
-[Kepencet Traveloka](https://kepencet-traveloka.vercel.app/) is a fun exploration of Twitter sentiment analysis for users that mistapped Traveloka App with another App (Twitter & Telegram).
+[Kepencet Traveloka](https://kepencet-traveloka.vercel.app/) is a fun exploration of Twitter sentiment analysis for users that mistapped Traveloka App with another App (Twitter & Telegram). This project was built on [n8n.io](https://n8n.io) and [Next.js](https://nextjs.org/).
 
 <p align="center">
-<img alt="Kepencet Traveloka" title="Kepencet Traveloka" src="https://github.com/arianjinx/kepencet-traveloka/blob/master/.github/ui-screenshot.png" width="600"> </br>
+<img alt="Kepencet Traveloka" title="Kepencet Traveloka" src="https://github.com/arianjinx/kepencet-traveloka/blob/master/.github/ui-screenshot.png" width="600"></br></br>
 </p>
 
-This project was built on [n8n.io](https://n8n.io) and [Next.js](https://nextjs.org/).
-
 <p align="center">
-<img alt="n8n" title="n8n" src="https://github.com/arianjinx/kepencet-traveloka/blob/master/.github/n8n-screenshot.png" width="600"> </br>
+<img alt="n8n" title="n8n" src="https://github.com/arianjinx/kepencet-traveloka/blob/master/.github/n8n-screenshot.png" width="600"></br>
 </p>
 
 ## Getting Started
